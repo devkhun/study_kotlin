@@ -8,6 +8,12 @@ plugins {
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
+sourceSets {
+    getByName("main") {
+        java.srcDir("src/main/kotlin")
+    }
+}
+
 repositories {
     mavenCentral()
 }
