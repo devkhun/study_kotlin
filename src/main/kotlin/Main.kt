@@ -2,64 +2,75 @@ import chapter01.CarManufacturer
 import chapter01.Student
 
 fun main(args: Array<String>) {
-    var a1 = 100
+    f1()
+    f2(100, 55.55)
+    f3(100, 55.55)
+    f3(100) // 초기값을 지정해 줬기 때문에 문제 없음
+    f3(a1 = 200, a2 = 66.66) // 매개변수에 직접 값을 넣어서 호출도 가능
+    f3(a2 = 77.77, a1 = 300) // 매개변수에 직접 값을 넣는 경우 매개변수 순서 바꾸는 것도 가능
+    f3(a2 = 88.88) // 매개변수 한개만 넣어도 호출 가능
+
+    f4()
+    var a1 = f5()
     println("a1 : ${a1}")
-    // a1 = 55.55 // 오류 발생! 최초에 정수를 넣었기 때문에 자료형은 정수형 -> 그 이후에 변경 불가능
 
-    var a2 = "안녕하세요"
-    println("a2 : ${a2}")
+    f6()
+    f6(100)
+    f6(55.55)
+    f6(100, 200)
 
-    var a3 : Int = 100
-    println("a3 : ${a3}")
+    f7()
+    // f8() // 오류발생! f8은 f7내에서 선언된 함수이기 때문에 f7내에서만 호출 가능
+}
 
-    // var a4 : String = 100 // 오류 발생! 문자열로 선언했는데 정수형을 넣었기 때문
+fun f1() { // 첫글자가 숫자만 아니면 됨!
+    println("f1 함수가 호출되었습니다")
+}
 
-    var a4 = 100
-    println("a4 : ${a4}")
-    a4 = 200
-    println("a4 : ${a4}") // a4는 var로 선언되었기 때문에 값 변경이 가능
+fun f2(a1: Int, a2: Double) { // 매개변수가 있는 함수
+    println("f2 함수가 호출되었습니다")
+    println("a1: ${a1}")
+    println("a2: ${a2}")
+}
 
-    val a5 = 100
-    println("a5 : ${a5}")
-    // a5 = 200 // 오류 발생! val로 선언했기 때문에 값 변경이 불가능
+fun f3(a1: Int = 0, a2: Double = 0.0) { // 초기값을 지정할 수 있다
+    println("f3 함수가 호출되었습니다")
+    println("a1: ${a1}")
+    println("a2: ${a2}")
+}
 
+fun f4() : Unit { // 반환이 없는 경우 Unit을 사용
+    println("f4 함수가 호출되었습니다")
+}
 
-    println("정수 : ${100}")
-    println("정수 (Long) : ${100L}")
-    println("실수 : ${55.55}")
-    println("실수 (Float) : ${55.55F}") // 메모리 기억공간을 절약할 수 있음
+fun f5() : Int { // 반환타입이 Int형
+    return 100
+}
 
-    // 세자리 마다 _ 추가 가능 (=콤마와 똑같은 기능)
-    // 숫자의 가독성이 높아짐
-    println(100000000)
-    println(1_000_000_000)
+// 오버로딩 가능
+// 매개변수 갯수, 타입이 다르면 동일한 함수명으로 정의 가능
+fun f6() {
+    println("매개 변수가 없는 f6")
+}
 
-    println("문자열입니다.") // 문자열
-    println('a') // 문자
+fun f6(a1: Int) {
+    println("정수 값 한개를 받는 f6: ${a1}")
+}
 
+fun f6(a1: Double) {
+    println("실수 값 한개를 받는 f6: ${a1}")
+}
 
+fun f6(a1: Int, a2: Int) {
+    println("정수 값 두개를 받는 f6: ${a1}, ${a2}")
+}
 
+// 함수 안에 함수
+fun f7() {
+    fun f8() { // f8은 f7안에서만 호출 가능
+        println("f8 함수가 호출되었습니다")
+    }
 
-    /*print("출력문")
-    print("출력문2")
-    println("출력문")
-    println("출력문")
-
-    println("숫자 ${100}")
-    var a1 = 100
-    var a2 = "안녕하세요"
-    println("a1 : ${a1}, a2 : ${a2}")*/
-
-    //println("Hello World!")
-
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    //println("Program arguments: ${args.joinToString()}")
-
-    // 프로젝트에서 자바와 코틀린 혼용하기!
-    val student = Student("geehhyy")
-    //println("Student name:${student.name}")
-
-    val carManufacturer = CarManufacturer("Hyundai")
-    //println("Car manufacturer:${carManufacturer.name}")
+    println("f7 함수가 호출되었습니다")
+    f8()
 }
